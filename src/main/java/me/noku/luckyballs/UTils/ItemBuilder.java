@@ -1,10 +1,13 @@
 package me.noku.luckyballs.UTils;
 
+import me.noku.luckyballs.LuckyBalls;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Arrays;
 
@@ -42,6 +45,10 @@ public class ItemBuilder {
     }
     public ItemBuilder addEnchantement(Enchantment e, int i, boolean b) {
         itemMeta.addEnchant(e, i, b);
+        return this;
+    }
+    public ItemBuilder addNameSpacedKey(NamespacedKey k) {
+        itemMeta.getPersistentDataContainer().set(k, PersistentDataType.BYTE, (byte) 1);
         return this;
     }
 

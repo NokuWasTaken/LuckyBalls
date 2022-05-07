@@ -19,9 +19,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class IronLoadEvent implements Listener {
 
-    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.IRON_INGOT).setDisplayname(ChatColor.GREEN + "Loaded Iron").addEnchantement(Enchantment.LUCK, 1, true).addCustomModelData(2).addItemFlags(ItemFlag.HIDE_ENCHANTS).build();
-
     private static final NamespacedKey KEY = new NamespacedKey(LuckyBalls.getInstance(), "iron_ingot_loaded");
+
+    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.IRON_INGOT).setDisplayname(ChatColor.GREEN + "Loaded Iron").addEnchantement(Enchantment.LUCK, 1, true).addCustomModelData(2).addItemFlags(ItemFlag.HIDE_ENCHANTS).addNameSpacedKey(KEY).build();
 
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
@@ -44,12 +44,6 @@ public class IronLoadEvent implements Listener {
                 player.getInventory().getItemInMainHand().setAmount(0);
 
             }
-
-            //ads the NameSpacedKey to the Meta of the ItemStack
-            ItemMeta meta = ITEMSTACK.getItemMeta();
-            PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
-            persistentDataContainer.set(KEY, PersistentDataType.BYTE, (byte) 1);
-            ITEMSTACK.setItemMeta(meta);
 
             //ads the loaded Iron into the players Inventory
             player.getInventory().addItem(ITEMSTACK);

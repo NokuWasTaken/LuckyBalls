@@ -2,6 +2,8 @@ package me.noku.luckyballs.recipes.LvL1.standard.Core;
 
 import me.noku.luckyballs.LuckyBalls;
 import me.noku.luckyballs.UTils.ItemBuilder;
+import me.noku.luckyballs.recipes.CoreContainer;
+import me.noku.luckyballs.recipes.LvL1.standard.Core.ingredients.RawSeed;
 import org.bukkit.ChatColor;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -16,19 +18,13 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class LvL1StandardCore {
 
-    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.BLUE + "Core").setLore(ChatColor.GRAY + "Level 1").addCustomModelData(2).build();
-
     private static final NamespacedKey KEY = new NamespacedKey(LuckyBalls.getInstance(), "level_1_standard_core");
+
+    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.BLUE + "Core").setLore(ChatColor.GRAY + "Level 1").addCustomModelData(2).addNameSpacedKey(KEY).build();
 
     public static void initRecipe() {
         //creates a shapeless recipe with key as NameSpacedKey and ITEMSTACK as result
         ShapedRecipe recipe = new ShapedRecipe(KEY, ITEMSTACK);
-
-        //ads the NameSpacedKey to the Meta of the ItemStack
-        ItemMeta meta = ITEMSTACK.getItemMeta();
-        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
-        persistentDataContainer.set(KEY, PersistentDataType.BYTE, (byte) 1);
-        ITEMSTACK.setItemMeta(meta);
 
         //defines the shape of the recipe
         recipe.shape("*&*",
@@ -37,8 +33,8 @@ public class LvL1StandardCore {
 
         //defines the ingredients
         recipe.setIngredient('*', Material.AIR);
-        recipe.setIngredient('&', new ItemBuilder(Material.WHEAT_SEEDS).setDisplayname(ChatColor.GRAY + "Raw Seed").addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).build());
-        recipe.setIngredient('%', new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.GRAY + "Core Containment Unit").addCustomModelData(1).addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).build());
+        recipe.setIngredient('&', RawSeed.getItemstack());
+        recipe.setIngredient('%', CoreContainer.getItemstack());
 
         //registers recipe
         LuckyBalls.getInstance().getServer().addRecipe(recipe);

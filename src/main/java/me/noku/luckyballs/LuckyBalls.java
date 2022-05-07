@@ -7,7 +7,11 @@ import me.noku.luckyballs.recipes.CoreContainer;
 import me.noku.luckyballs.recipes.LvL1.standard.Core.LvL1StandardCore;
 import me.noku.luckyballs.recipes.LvL1.standard.Core.ingredients.RawSeed;
 import me.noku.luckyballs.recipes.LvL1.standard.LvL1StandardLuckyBall;
+import me.noku.luckyballs.recipes.LvL2.standard.Core.LvL2StandardCore;
 import me.noku.luckyballs.recipes.LvL2.standard.Core.ingredients.UnloadedIron;
+import me.noku.luckyballs.recipes.LvL2.standard.Ingredients.CompressedLapisLazuli;
+import me.noku.luckyballs.recipes.LvL2.standard.Ingredients.CompressedRedstone;
+import me.noku.luckyballs.recipes.LvL2.standard.LvL2StandardLuckyBall;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -27,19 +31,20 @@ public final class LuckyBalls extends JavaPlugin {
     }
 
     void load() {
+        //registers instances
         instance = this;
         utils = new UTils();
         utils.log(TextConstants.DEBUG_PREFIX() + "instances registered");
-        
-        commandRegistry();
-        utils.log(TextConstants.DEBUG_PREFIX() + "commands registered");
-        
-        listenerRegistry();
-        utils.log(TextConstants.DEBUG_PREFIX() + "listener registered");
 
+        //registers listeners
+        listenerRegistry();
+        utils.log(TextConstants.DEBUG_PREFIX() + "listeners registered");
+
+        //registers recipes
         recipeRegistry();
         utils.log(TextConstants.DEBUG_PREFIX() + "recipes registered");
 
+        //displays some fancy ASCII Art
         utils.log("  _                _          ____        _ _     \n" +
                        " | |              | |        |  _ \\      | | |    \n" +
                        " | |    _   _  ___| | ___   _| |_) | __ _| | |___ \n" +
@@ -50,22 +55,29 @@ public final class LuckyBalls extends JavaPlugin {
                        "                        |___/                     ");
     }
     
-    void commandRegistry() {
-        
-    }
-    
     void listenerRegistry() {
         utils.event(new IronLoadEvent(), this);
     }
     
     void recipeRegistry() {
+        //General Purpose recipes
         CoreContainer.initRecipe();
 
+        //Lvl 1 recipes
+         //LvL1 Core recipes
         RawSeed.initRecipe();
         LvL1StandardCore.initRecipe();
+         //LvL 1 Lucky Ball recipes
         LvL1StandardLuckyBall.initRecipe();
 
+        //LvL 2 recipes
+         //LvL 2 Core recipes
         UnloadedIron.initRecipe();
+        LvL2StandardCore.initRecipe();
+         //LvL 2 Lucky Ball recipes
+        CompressedRedstone.initRecipe();
+        CompressedLapisLazuli.initRecipe();
+        LvL2StandardLuckyBall.initRecipe();
         
     }
 

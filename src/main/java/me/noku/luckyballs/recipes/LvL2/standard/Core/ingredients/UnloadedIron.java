@@ -15,17 +15,11 @@ public class UnloadedIron {
 
     private static final NamespacedKey KEY = new NamespacedKey(LuckyBalls.getInstance(), "iron_ingot_unloaded");
 
-    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.IRON_INGOT).setDisplayname(ChatColor.BLUE + "Unloaded Iron").addCustomModelData(1).build();
+    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.IRON_INGOT).setDisplayname(ChatColor.BLUE + "Unloaded Iron").addCustomModelData(1).addNameSpacedKey(KEY).build();
 
     public static void initRecipe() {
         //creates new shapeless recipe with KEY as NameSpacedKey and ITEMSTACK as result
         ShapelessRecipe recipe = new ShapelessRecipe(KEY, ITEMSTACK);
-
-        //ads the NameSpacedKey to the Meta of the ItemStack
-        ItemMeta meta = ITEMSTACK.getItemMeta();
-        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
-        persistentDataContainer.set(KEY, PersistentDataType.BYTE, (byte) 1);
-        ITEMSTACK.setItemMeta(meta);
 
         //defines the ingredients
         recipe.addIngredient(Material.IRON_INGOT);

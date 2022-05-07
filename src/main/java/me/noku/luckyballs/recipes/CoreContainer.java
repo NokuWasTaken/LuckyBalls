@@ -15,19 +15,13 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class CoreContainer {
 
-    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.GRAY + "Core Containment Unit").addCustomModelData(1).addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).build();
-
     private static final NamespacedKey KEY = new NamespacedKey(LuckyBalls.getInstance(), "core_container");
+
+    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.GRAY + "Core Containment Unit").addCustomModelData(1).addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).addNameSpacedKey(KEY).build();
 
     public static void initRecipe() {
         //creates new shaped recipe with KEY as NameSpacedKey and ITEMSTACK as result
         ShapedRecipe recipe = new ShapedRecipe(KEY, ITEMSTACK);
-
-        //ads the NameSpacedKey to the Meta of the ItemStack
-        ItemMeta meta = ITEMSTACK.getItemMeta();
-        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
-        persistentDataContainer.set(KEY, PersistentDataType.BYTE, (byte) 1);
-        ITEMSTACK.setItemMeta(meta);
 
         //defines the shape of the recipe
         recipe.shape("%%%",
