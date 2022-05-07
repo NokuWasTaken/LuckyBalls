@@ -1,0 +1,6 @@
+name: LuckyBalls
+version: '${project.version}'
+main: me.noku.luckyballs.LuckyBalls
+api-version: 1.18
+prefix: LuckyBalls
+authors: [ Noku ]
