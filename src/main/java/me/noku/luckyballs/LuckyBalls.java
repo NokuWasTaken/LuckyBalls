@@ -1,7 +1,7 @@
 package me.noku.luckyballs;
 
 import me.noku.luckyballs.Constants.TextConstants;
-import me.noku.luckyballs.Events.ItemUseEvent;
+import me.noku.luckyballs.Events.IronLoadEvent;
 import me.noku.luckyballs.UTils.UTils;
 import me.noku.luckyballs.recipes.CoreContainer;
 import me.noku.luckyballs.recipes.LvL1.standard.Core.LvL1StandardCore;
@@ -55,7 +55,7 @@ public final class LuckyBalls extends JavaPlugin {
     }
     
     void listenerRegistry() {
-        utils.event(new ItemUseEvent(), this);
+        utils.event(new IronLoadEvent(), this);
     }
     
     void recipeRegistry() {

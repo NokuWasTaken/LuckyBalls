@@ -9,23 +9,48 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 public class CoreContainer {
 
+    private static final ItemStack ITEMSTACK = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.GRAY + "Core Containment Unit").addCustomModelData(1).addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).build();
+
+    private static final NamespacedKey KEY = new NamespacedKey(LuckyBalls.getInstance(), "core_container");
+
     public static void initRecipe() {
+        //creates new shaped recipe with KEY as NameSpacedKey and ITEMSTACK as result
+        ShapedRecipe recipe = new ShapedRecipe(KEY, ITEMSTACK);
 
-        ItemStack result = new ItemBuilder(Material.REDSTONE_LAMP).setDisplayname(ChatColor.GRAY + "Core Containment Unit").addCustomModelData(1).addEnchantement(Enchantment.LUCK, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS).build();
+        //ads the NameSpacedKey to the Meta of the ItemStack
+        ItemMeta meta = ITEMSTACK.getItemMeta();
+        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
+        persistentDataContainer.set(KEY, PersistentDataType.BYTE, (byte) 1);
+        ITEMSTACK.setItemMeta(meta);
 
-        NamespacedKey key = new NamespacedKey(LuckyBalls.getInstance(), "core_container");
+        //defines the shape of the recipe
+        recipe.shape("%%%",
+                     "%*%",
+                     "%%%" );
 
-        ShapedRecipe recipe = new ShapedRecipe(key, result);
-
-        recipe.shape("%%%", "%*%", "%%%");
-
+        //defines the ingredients of the recipe
         recipe.setIngredient('%', Material.IRON_INGOT);
         recipe.setIngredient('*', Material.AIR);
 
+        //registers recipe
         LuckyBalls.getInstance().getServer().addRecipe(recipe);
+
+    }
+
+    //returns ITEMSTACK
+    public static ItemStack getItemstack() {
+        return ITEMSTACK;
+    }
+
+    //returns KEY
+    public static NamespacedKey getKey() {
+        return KEY;
     }
 
 
